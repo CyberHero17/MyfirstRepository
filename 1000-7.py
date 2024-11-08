@@ -40,15 +40,17 @@ plt.ylabel('Напряжение, В')
 plt.minorticks_on()
 plt.grid(visible= True, which= 'major', linestyle= '-', linewidth= 1, color = '0.7')														
 plt.grid(visible= True, which= 'minor', linestyle= '-', linewidth= 0.5, color= '0.9')
-graf = plt.plot(T, U, color= 'blue')
-plt.legend(graf, ['V(t)'])
+plt.xlim(0, 12)
+plt.ylim(0, 3)
+graf = plt.plot(T_new, U_new, 'o-b')
+
 plt.errorbar(T_new, U_new,
-             
              capsize=3,
              capthick=3.0,
              elinewidth=5.0,
              marker='o',
              color= "blue")
+plt.legend(graf, ['V(t)'])
 plt.show()
 
 
