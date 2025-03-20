@@ -1,0 +1,4 @@
+/home/alex/Desktop/Pepper/build/CMakeFiles/SpaceCat.dir
+/home/alex/Desktop/Pepper/build/CMakeFiles/some_test.dir
+/home/alex/Desktop/Pepper/build/CMakeFiles/edit_cache.dir
+/home/alex/Desktop/Pepper/build/CMakeFiles/rebuild_cache.dir
