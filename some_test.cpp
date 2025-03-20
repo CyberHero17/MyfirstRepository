@@ -1,106 +1,51 @@
+// мы не можем делать полиморфизм по возращаемому значению функции 
+// nullptr - пустой указатель, NULL - указатель на нулевую ячейку, данных нет, забейте 
+// const - для безопасности, 
 #include <iostream>
 
 using namespace std;
 
-// Базовый класс «зверушка»
-class Animal {
-protected:
-    bool brain;
+// Функция обмена значений переменных, принимающая аргументы по указателю
+void pswap(int* a, int* b)
+{
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
 
-public:
-    Animal() {
-        cout << "Animal created" << endl;
-        this->brain = true;
-    }
+// Функция обмена значений переменных, принимающая аргументы по ссылке
+void rswap(int& a, int &b)
+{
+    int t = a;
+    a = b;
+    b = t;
+}
 
-    // Все эти методы будут доступны в дочерних классах
+// Функция обмена значений переменных, принимающая аргументы по значению
+void vswap(int a, int b)
+{
+    int t = a;
+    a = b;
+    b = t;
+}
 
-    virtual void say() { // Виртуальный метод, но есть реализация по умолчанию
-        cout << "(silence)" << endl;
-    }
-    void say2(){
-        cout << "Say2(silence)";
-    }
-    bool hasBrain() {
-        return brain;
-    }
-};
+int main()
+{
+    int a = 1;
+    int b = 2;
+    cout << "a: " << a << ", b: " << b << endl;
 
-// Дочерний класс «черепашка», наследуется от класса «зверушка»
-class Turtle: public Animal {
-public:
-    Turtle() {
-        cout << "Turtle created" << endl;
-    }
-};
-
-// Дочерний класс «корова», наследуется от класса «зверушка»
-class Cow: public Animal {
-public:
-    Cow() {
-        cout << "Cow created" << endl;
-    }
-
-    // Корова имеет свою точку зрения на то, как надо разговаривать
-    void say() {
-        cout << "Moo" << endl;
-    }
-    void say2(){
-        cout << "Say2(MOOO)";
-    }
-};
-
-// Дочерний класс «собака», наследуется от класса «зверушка»
-class Dog: public Animal {
-public:
-    Dog() {
-        cout << "Dog created" << endl;
-    }
-
-    void say() {
-        cout << "Woof!" << endl;
-    }
-    void say2(){
-        cout << "Say2(Woof)";
-    }
-};
-
-// Дочерний класс «ненормальная собака»,
-// наследуется не от зверушки, а от обычной собаки
-class CrazyDog: public Dog {
-public:
-    CrazyDog() {
-        this->brain = false;
-        cout << "Dog gone crazy" << endl;
-    }
-
-    void say() {
-        cout << "Woof! Woof! Woof! Woof! Woof!" << endl;
-    }
-    void say2(){
-        cout << "Woof Woof Woof";
-    }
-};
-
-int main() {
-    cout << boolalpha;
-
-    // Объявили массив указателей на абстрактных зверушек
-    Animal* animals[4];
-    // Насоздали конкретных зверушек (смотрим в сообщения в консоли, видим цепочки конструкторов)
-    animals[0] = new Animal(); // Так теперь снова можно
-    animals[1] = new Cow();
-    animals[2] = new Dog();
-    animals[3] = new CrazyDog();
-
-    // Попробовали к ним обращаться (спойлер - теперь работает!)
-    for(int i = 0; i < 4; i++) {
-        cout << "Animal[" << i << "] has brain? " << animals[i]->hasBrain() << endl;
-        cout << "Animal[" << i << "] says: ";
-        animals[i]->say();
-        animals[i]->say2();
-        delete animals[i];
-    }
+    // Эта функция не работает! Она меняет значения временных переменных
+    vswap(a, b);
+    cout << "a: " << a << ", b: " << b << endl;
+    
+    // Эта работает
+    rswap(a, b);
+    cout << "a: " << a << ", b: " << b << endl;
+    
+    // И эта тоже
+    pswap(&a, &b);
+    cout << "a: " << a << ", b: " << b << endl;
 
     return 0;
 }
